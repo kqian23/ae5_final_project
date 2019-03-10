@@ -1,0 +1,38 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(100, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+}
+
+.Saurav {
+  background-color: darkred;
+}
+
+.Ebneazer {
+  background-color: darkorange;
+}
+
+.Brandon {
+  background-color: darkblue;
+}
+
+.Kun {
+  background-color: goldenrod;
+}
+
+.card-title {
+  color: grey;
+  font-size: 18px;
+}
+
+.social-media {
+  text-decoration: none;
+  font-size: 22px;
+  color: white;
+}
+
+.social-media:hover {
+  opacity: 0.7;
+}
+
