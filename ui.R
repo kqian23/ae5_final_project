@@ -1,15 +1,36 @@
 library("shiny")
 source("server.R")
 
+home_page <- tabPanel("Home",
+            #  includeCSS("www/header.css"),
+              includeHTML("www/header.html"),
+              br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
+              titlePanel(h1("Study on Youth Poverty and Youth Smoking", align = "center", style = "font-size: 70px"))
+)
+
+team_page <- tabPanel("Team",
+             # includeCSS("www/header.css"),
+              includeHTML("www/header.html"),
+              br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
+              titlePanel(h1("Our Team", align = "left", style = "font-size: 70px")),
+              br(), br(),
+              includeCSS("www/profile.css"),
+              includeHTML("www/profile.html")
+              
+)
+
+sources_page <- tabPanel("Sources",
+                 includeHTML("www/header.html"),
+                 br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(), br(),
+                 includeHTML("www/sources.html")
+)
 
 ui <- fluidPage(
-  #includeCSS("www/bootstrap.css"),
-  includeCSS("www/profile.css"),
+  includeCSS("www/bootstrap.css"),
   includeCSS("www/header.css"),
-  navbarPage("I'm NavBar",
-     tabPanel("Home",
-        includeHTML("www/header.html")
-     ),
+  navbarPage("",
+             
+    home_page,
      tabPanel("Q1"
               # Q1 Code starts here
      ),
@@ -22,12 +43,8 @@ ui <- fluidPage(
      tabPanel("Q4"
               # Q4 Code starts here
      ),
-     tabPanel("About",
-        includeHTML("www/profile.html")
-     ),
-     tabPanel("Sources"
-              # Source Code starts here
-     )
+    team_page,
+    sources_page
   )
 )
 

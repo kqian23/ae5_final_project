@@ -1,38 +1,66 @@
+
+
+.column {
+  float: left;
+  width: 25%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+/* Add some shadows to create a card effect */
 .card {
-  box-shadow: 0 4px 8px 0 rgba(100, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #dfdfe5;
+  
 }
 
-.Saurav {
-  background-color: darkred;
+/* Some left and right padding inside the container */
+.container {
+  padding: 0 16px;
 }
 
-.Ebneazer {
-  background-color: darkorange;
+/* Clear floats */
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
-.Brandon {
-  background-color: darkblue;
-}
-
-.Kun {
-  background-color: goldenrod;
-}
-
-.card-title {
+.title {
   color: grey;
-  font-size: 18px;
 }
 
-.social-media {
-  text-decoration: none;
-  font-size: 22px;
+.description {
+  display: block;
+  width: 25%;
+
+}
+
+
+.button {
+  border: none;
+  outline: 0;
+  display: block;
+  padding: 8px;
   color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 25%;
 }
 
-.social-media:hover {
-  opacity: 0.7;
+.button:hover {
+  background-color: #555;
 }
 
+.name {
+  color: black;
+}
