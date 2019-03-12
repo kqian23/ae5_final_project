@@ -15,8 +15,28 @@ server <- function(input, output) {
   
   # Q3 starts here
   
+  cessation <- get_youth_tobacco_data() %>%
+    select(-Geo_Location,-Response) %>%
+    filter( Topic_Description == "Cessation (Youth)"
+                   , Education == "High School", Year == "2002",
+                     Gender == "Male")
+
+
+  poverty <- get_youth_poverty_data()
+    colnames(poverty)[colnames(poverty)=="state"] <- "states"
+    colnames(poverty)[colnames(poverty)=="state_abbreviation"] <- "state"
+
+    youth_poverty_data_set <- get_youth_poverty_data()
+    youth_poverty_data_set <- youth_poverty_data_set %>%
+      filter(year == input$year) %>%
+      ungroup() %>%
+      select(State = state_abbreviation, ages_0_to_17_in_poverty_rate)
+
+
+   left_join (cessation, poverty, c("state", "State"))
+
   
-  # Q4 starts here
+   # Q4 starts here
   output$education <- renderPlot({
     youth_tobacco_data_set <- get_youth_tobacco_data() 
     youth_tobacco_data_set <- youth_tobacco_data_set %>% 
