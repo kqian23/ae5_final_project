@@ -4,8 +4,8 @@ library("dplyr")
 library("tidyr")
 
 
-View(get_youth_tobacco_data())
-View(get_youth_poverty_data())
+# View(get_youth_tobacco_data())
+# View(get_youth_poverty_data())
 
 # Returns a data frame of the Youth Tobacco Survey with data on smoking for children
 # across the nation
@@ -146,3 +146,5 @@ get_tobacco_by_topic <- function() {
   tobacco_topic_ranked
 }
 
+test <- mutate(get_youth_poverty_data(), 
+                                        max_test = as.numeric(ages_0_to_17_in_poverty_rate))
