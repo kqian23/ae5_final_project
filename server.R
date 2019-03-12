@@ -70,17 +70,17 @@ server <- function(input, output) {
                                 )
     summarized_set <- mutate(summarized_set, Difference = High_School - Middle_School)
     
-    # Tidy up data using tidyr to make it appropriate for plotting
-    summarized_set <- gather(summarized_set, 
+     #Tidy up data using tidyr to make it appropriate for plotting
+     summarized_set <- gather(summarized_set, 
                              key = education, value = percentage,
                              -percentage_bins) # ignore percentage bins column
     
-    # The below line of code makes it so that bars appear in the following order: Middle School, High School, and Difference
-    summarized_set$education <- factor(summarized_set$education, levels = c("Middle_School","High_School","Difference")) 
+     #The below line of code makes it so that bars appear in the following order: Middle School, High School, and Difference
+     summarized_set$education <- factor(summarized_set$education, levels = c("Middle_School","High_School","Difference")) 
     
-    # Make the plot
-    ggplot(data = summarized_set) +
-      geom_col(mapping = aes(x = percentage_bins, y = percentage, fill = education), position = "dodge") + 
+     #Make the plot
+     ggplot(data = summarized_set) +
+     geom_col(mapping = aes(x = percentage_bins, y = percentage, fill = education), position = "dodge") + 
       labs (
         x = "Poverty Rates",
         y = paste0("Avg % ", input$gender, " students who smoke in ", input$year),

@@ -55,20 +55,16 @@ question_four_page <- tabPanel("Question 4",
                                              ), 
                                              mainPanel(
                                                        titlePanel(
-                                                                  "How does poverty rate correlate with middle school tobacco usage versus high 
-                                                                  school tobacco usage? In other words, does a difference in poverty rates 
-                                                                  between two states cause a larger difference in middleschool tobacco usage or 
-                                                                  in high school tobacco usage?"
-                                                       ), 
+                                                                  "Does poverty rate correlate to a difference in high school tobacco usage and middle school usage?"
+                                                       ), br(), br(),
                                                        plotOutput(
                                                                  outputId = "education"
                                                        ),
                                                        h2("Why does this question matter?"),
-                                                       p("This question helps us understand at which age level do students pick up smoking in different poverty levels.
-                                                         If students have a lower difference in tobacco usage in middle school versus high school in high poverty areas, 
-                                                         anti-smoking campaigns can target middle schoolers to stop the usage before it begins. However, if there is a large
-                                                         difference, then you know that most smoking in that poverty range is starting in high school, so the marketing efforts
-                                                         should focus there."),
+                                                       p("This question helps us understand when students pick up smoking in different poverty levels. If the difference in high school 
+                                                          tobacco usage versus middle school decreases as poverty rates rise, it means that more students pick up smoking in middle school as 
+                                                          poverty rates go up. If the differences increases as poverty rates rise, it means that more students pick up smoking in high school as 
+                                                          poverty rates go up. Anti-smoking campaigns can use this information to target middle schoolers/high schoolers based on what the research shows."),
                                                        br(),
                                                        h2("What are the variables of interest?"),
                                                        p("With so many different variables in our interest, it is important to determine which variables we care about to answer
@@ -79,7 +75,24 @@ question_four_page <- tabPanel("Question 4",
                                                          we'll take a look at both cigarette usage and smokeless tobacco to see if there is a difference in the two."),
                                                        h2("What does the data look like?"),
                                                        h3("Cigarette Use Data"),
-                                                       h3("Smokeless Tobacco Data")
+                                                       img(src = "Cigarette.png", height = "500px", width = "800px"),
+                                                       br(), br(),
+                                                       p("When looking at this chart, it is evident that the blue bar, signifying the difference in cigarette smoking rates between high school and
+                                                         middle school is increasing as poverty rates increase. In fact in the 25%-30% bin, the average percent difference is BLANK, while in the 10% to 15%, the average 
+                                                         percent difference is BLANK. That is a difference of BLANK. This helps us understand that there might be a correlation between poverty rates
+                                                         and when students pick up smoking. As poverty rate increases, it seems that more and more students end up picking up smoking in high school rather than
+                                                         middle school. This might indicate that anti-cigarette marketing campaigns should focus on highschoolers in high poverty areas."),
+                                                       h3("Smokeless Tobacco Data"),
+                                                       img(src = "SmokelessTobacco.png", height = "500px", width = "800px"),
+                                                       br(), br(),
+                                                       p("When looking at this chart, there is not a clear correlation to be made between tobacco rates and when smoking is picked up. 
+                                                          While the difference between the 10% to 15% and the 25% - 30% bins is nearly the same as the cigarette use chart, there is 
+                                                         not a clear upwards trend for the differences columns as poverty rates increase. As a result, there is a low chance for correlation between poverty rates 
+                                                         and when students pick up smokeless tobacco.
+                                                         
+                                                         One potential reason why difference in smokeless tobacco might not have a significant trend is because smokeless tobacco is friendlier to younger populations than
+                                                         cigarettes. As a result, middle schoolers and high schoolers at any poverty rate can pick them up. Furthermore, smokeless tobacco is easier to hide than cigarettes,
+                                                         making them more friendly to all ages from all poverty rates.")
                                             )
                                )
                       )
