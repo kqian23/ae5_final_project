@@ -25,6 +25,13 @@ sources_page <- tabPanel("Sources",
                  includeHTML("www/sources.html")
 )
 
+
+
+
+question_one_page <- tabPanel("Poverty & Gender of Smokers")
+
+ 
+
 question_four_page <- tabPanel("Question 4",
                            sidebarLayout(
                              sidebarPanel(
@@ -57,9 +64,7 @@ ui <- fluidPage(
   includeCSS("www/header.css"),
   navbarPage("",
     home_page,
-     tabPanel("Q1"
-              # Q1 Code starts here
-     ),
+     question_one_page,
      tabPanel("Q2"
               # Q2 Code starts here
      ),
