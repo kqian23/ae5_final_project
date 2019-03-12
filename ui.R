@@ -2,27 +2,32 @@ library("shiny")
 source("server.R")
 
 home_page <- tabPanel("Home",
-            #  includeCSS("www/header.css"),
-              includeHTML("www/header.html"),
-              br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
-              titlePanel(h1("Study on Youth Poverty and Youth Smoking", align = "center", style = "font-size: 70px"))
+                      includeCSS("www/header.css"),
+                      includeHTML("www/header.html"),
+                      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
+                      titlePanel(h1("Study on Youth Poverty and Youth Smoking", align = "center", style = "font-size: 70px")),
+                      br(), br(), 
+                      h3("Feel free to click through each of our question tabs on the page above to learn about our study of the relation between youth poverty and youth smoking", align = "center", style = "font-size: 35px")
 )
 
 team_page <- tabPanel("Team",
-             # includeCSS("www/header.css"),
-              includeHTML("www/header.html"),
-              br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
-              titlePanel(h1("Our Team", align = "left", style = "font-size: 70px")),
-              br(), br(),
-              includeCSS("www/profile.css"),
-              includeHTML("www/profile.html")
+                        includeCSS("www/header.css"),
+                        includeHTML("www/header.html"),
+                        br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
+                        titlePanel(h1("Our Team", align = "left", style = "font-size: 70px")),
+                        br(), br(),
+                        includeCSS("www/profile.css"),
+                        includeHTML("www/profile.html")
               
 )
 
 sources_page <- tabPanel("Sources",
-                 includeHTML("www/header.html"),
-                 br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(), br(),
-                 includeHTML("www/sources.html")
+                         includeCSS("www/header.css"),
+                         includeHTML("www/header.html"),
+                         br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(), br(),
+                         titlePanel(h1("Our Sources", align = "center", style = "font-size: 70px")),
+                         br(), br(),
+                         includeHTML("www/sources.html")
 )
 
 question_four_page <- tabPanel("Question 4",
@@ -56,7 +61,8 @@ question_four_page <- tabPanel("Question 4",
                                              mainPanel(
                                                        titlePanel(
                                                                   "Does poverty rate correlate to a difference in high school tobacco usage and middle school usage?"
-                                                       ), br(), br(),
+                                                       ), 
+                                                       br(), br(),
                                                        plotOutput(
                                                                  outputId = "education"
                                                        ),
@@ -78,8 +84,8 @@ question_four_page <- tabPanel("Question 4",
                                                        img(src = "Cigarette.png", height = "500px", width = "800px"),
                                                        br(), br(),
                                                        p("When looking at this chart, it is evident that the blue bar, signifying the difference in cigarette smoking rates between high school and
-                                                         middle school is increasing as poverty rates increase. In fact in the 25%-30% bin, the average percent difference is BLANK, while in the 10% to 15%, the average 
-                                                         percent difference is BLANK. That is a difference of BLANK. This helps us understand that there might be a correlation between poverty rates
+                                                         middle school is increasing as poverty rates increase. In fact in the 25%-30% bin, the average percent difference is 19.9, while in the 10% to 15%, the average 
+                                                         percent difference is 16.03% That is a difference of 3.87%. This helps us understand that there might be a correlation between poverty rates
                                                          and when students pick up smoking. As poverty rate increases, it seems that more and more students end up picking up smoking in high school rather than
                                                          middle school. This might indicate that anti-cigarette marketing campaigns should focus on highschoolers in high poverty areas."),
                                                        h3("Smokeless Tobacco Data"),
@@ -99,7 +105,6 @@ question_four_page <- tabPanel("Question 4",
                               
 ui <- fluidPage(
   includeCSS("www/bootstrap.css"),
-  includeCSS("www/header.css"),
   navbarPage("",
     home_page,
      tabPanel("Q1"

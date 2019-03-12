@@ -22,12 +22,12 @@ server <- function(input, output) {
     # Get youth tobacco data set
     youth_tobacco_data_set <- get_youth_tobacco_data() 
     
-    #input = list()
-    #input$year = "2000"
-    #input$type = "Cigarette Use (Youth)"
-    #input$gender = "Overall"
-    #input$feature = "Ever"
-    # update youth tobacco data set based on input values for year, type of smoking, gender, and frequency
+    input = list()
+    input$year = "2017"
+    input$type = "Cigarette Use (Youth)"
+    input$gender = "Overall"
+    input$frequency = "Ever"
+    
     youth_tobacco_data_set <- youth_tobacco_data_set %>% 
       filter(Year == input$year) %>%  # Filter for chosen year
       filter(Topic_Description == input$type) %>% # Filter for type of smoking
@@ -77,7 +77,7 @@ server <- function(input, output) {
     
      #The below line of code makes it so that bars appear in the following order: Middle School, High School, and Difference
      summarized_set$education <- factor(summarized_set$education, levels = c("Middle_School","High_School","Difference")) 
-    
+     View(summarized_set)
      #Make the plot
      ggplot(data = summarized_set) +
      geom_col(mapping = aes(x = percentage_bins, y = percentage, fill = education), position = "dodge") + 
