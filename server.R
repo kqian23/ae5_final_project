@@ -32,37 +32,50 @@ server <- function(input, output) {
     # filter out poverty data set
     poverty_data <- poverty %>%
       filter(year == input$years)
+    # input$years)
 
 
     joined_cessation_poverty_data <- left_join(cessation, poverty,
       by = c("State")
     ) %>%
-      select(Year, State, Gender, Education, Data_Value, ages_0_to_17_in_poverty_rate) %>%
-      na.omit()
-    
-    joined_cessation_poverty_data <- mutate(joined_cessation_poverty_data, 
-                             poverty_rate = as.numeric(ages_0_to_17_in_poverty_rate))
-    poverty_perc_bin_labels <- 
-      c("0% to 5%","5% to 10%","10% to 15%", "15% to 20%", "20% to 25%", 
-        "25% to 30%", "30% to 35%")
-    percentage_bins <- 
-      cut(joined_cessation_poverty_data$poverty_rate, 
-          c(0, 5, 10, 15, 20, 25,30, 35), poverty_perc_bin_labels)
+      select(
+        Year, State, Gender, Education, Data_Value,
+        ages_0_to_17_in_poverty_rate
+      )
+
+
+    joined_cessation_poverty_data <- mutate(joined_cessation_poverty_data,
+      poverty_rate = as.numeric(ages_0_to_17_in_poverty_rate)
+    ) 
+
+
+    poverty_perc_bin_labels <-
+      c(
+        "0% to 5%", "5% to 10%", "10% to 15%", "15% to 20%", "20% to 25%",
+        "25% to 30%", "30% to 35%"
+      )
+    percentage_bins <-
+      cut(
+        joined_cessation_poverty_data$poverty_rate,
+        c(0, 5, 10, 15, 20, 25, 30, 35), poverty_perc_bin_labels
+      )
 
     ggplot(data = joined_cessation_poverty_data) +
       geom_col(mapping = aes(
         x = percentage_bins, y = Data_Value,
         fill = Education
       )) + labs(
-        title = paste("Smoking Cessation Vs. Poverty Rates for",input$gender, 
-                      "in the year of", input$years,
-                      input$selected_year, "in the United States"),
+        title = paste(
+          "Smoking Cessation Vs. Poverty Rates for", input$gender,
+          "in the year of", input$years,
+          input$selected_year, "in the United States"
+        ),
         x = "Poverty Rate", y = "Cessation"
       ) +
       scale_fill_brewer(palette = "Accent")
   })
-  
-  
+
+
 
   # Q4 starts here
   output$education <- renderPlot({
