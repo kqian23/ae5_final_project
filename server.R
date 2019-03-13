@@ -18,6 +18,7 @@ server <- function(input, output) {
     # Assign a reactive `renderPlot()` function to the outputted 'plot' value
       output$my_plot <- renderPlot({
       selected_values <- input$Year
+     
       #source in youth tobacco data
       youth_smoking <- get_youth_tobacco_data()
       
