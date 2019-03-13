@@ -12,7 +12,7 @@ server <- function(input, output) {
   
  
   # Q1 starts here
-  # ******************************************************************************************
+
   # filter the data based on user input
   output$one_scatter <- renderPlotly({
     # load data
@@ -114,7 +114,6 @@ server <- function(input, output) {
 
   
   # Q2 starts here
-  # ******************************************************************************************
    # A plotOutput showing the 'plot' output (based on the user specification)
     # Assign a reactive `renderPlot()` function to the outputted 'plot' value
     output$my_plot <- renderPlot({
@@ -152,14 +151,13 @@ server <- function(input, output) {
       # smoking as smooth to show causation 
       p <- ggplot(data = plot_data)+
         geom_point(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking))+
-        geom_smooth(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking))
+        geom_smooth(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking), method = "lm")
 
       p #return the plot
     })#end of render plot    
   
   
   # Q3 starts here
-  # ******************************************************************************************
     output$cessation <- renderPlot({
       poverty <- get_youth_poverty_data()
       
