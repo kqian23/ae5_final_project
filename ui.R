@@ -2,42 +2,25 @@ library("shiny")
 source("server.R")
 
 # ******************************************************************************************
-# Main ui
-
-ui <- fluidPage(
-  includeCSS("www/bootstrap.css"),
-  includeCSS("www/header.css"),
-  navbarPage(
-    "",
-    home_page,
-    question_one_page,
-    question_two_page,
-    question_three_page,
-    question_four_page,
-    team_page,
-    sources_page
-  )
-)
-
-
-# ******************************************************************************************
 # Pages
 
 home_page <- tabPanel(
   "Home",
   #  includeCSS("www/header.css"),
   includeHTML("www/header.html"),
-  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), 
+  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(),
   br(), br(), br(), br(),
-  titlePanel(h1("Study on Youth Poverty and Youth Smoking", align = "center", 
-                style = "font-size: 70px"))
+  titlePanel(h1("Study on Youth Poverty and Youth Smoking",
+    align = "center",
+    style = "font-size: 70px"
+  ))
 )
 
 team_page <- tabPanel(
   "Team",
   # includeCSS("www/header.css"),
   includeHTML("www/header.html"),
-  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), 
+  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(),
   br(), br(), br(), br(),
   titlePanel(h1("Our Team", align = "left", style = "font-size: 70px")),
   br(), br(),
@@ -48,7 +31,7 @@ team_page <- tabPanel(
 sources_page <- tabPanel(
   "Sources",
   includeHTML("www/header.html"),
-  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), 
+  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(),
   br(), br(), br(), br(), br(), br(),
   includeHTML("www/sources.html")
 )
@@ -68,7 +51,7 @@ question_one_page <- tabPanel("Poverty & Gender of Smokers",
                                          # implant check box on the right side bar
                                          sidebarLayout(position = "right",
                                                        sidebarPanel(
-                                                         checkboxGroupInput("gender",
+                                                         checkboxGroupInput("gender_one",
                                                                             label = "Select Gender",
                                                                             choices = c("Male" = "avg_male_smoking", "Female" = "avg_female_smoking"),
                                                                             selected = "Male"
@@ -161,7 +144,7 @@ question_three_page <- tabPanel(
         )
       ),
       radioButtons(
-        inputId = "gender",
+        inputId = "gender_three",
         label = "Select a gender of interest to compare against",
         choices = list(
           "Male",
@@ -171,8 +154,23 @@ question_three_page <- tabPanel(
       )
     ),
     mainPanel(
-      plotOutput(
-        outputId = "cessation"
+      tabsetPanel(
+        type = "tabs",
+        tabPanel("Table", tableOutput("table")),
+        tabPanel(
+          "plot", plotOutput(outputId = "cessation")
+        ),
+        
+        tabPanel(
+          "Analysis",
+          h4("For the states that has the highest cessation percentage in a given
+             year, what is its poverty level?"),
+          h5("Does the percentage of the attempt to quit smoking relate to poverty?"),
+          h5("We would like to know if income plays a role for children to make 
+             the decision of whether to quit smoking"),
+          p("In anaanalizing ")
+        )
+      
       )
     )
   )
@@ -213,3 +211,20 @@ question_four_page <- tabPanel(
 
 
 
+# ******************************************************************************************
+# Main ui
+
+ui <- fluidPage(
+  includeCSS("www/bootstrap.css"),
+  includeCSS("www/header.css"),
+  navbarPage(
+    "",
+    home_page,
+    question_one_page,
+    question_two_page,
+    question_three_page,
+    question_four_page,
+    team_page,
+    sources_page
+  )
+)

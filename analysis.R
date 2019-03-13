@@ -4,7 +4,6 @@ library("dplyr")
 library("tidyr")
 
 
-
 # Returns a data frame of the Youth Tobacco Survey with data on smoking for children
 # across the nation
 get_youth_tobacco_data <- function () {
@@ -54,6 +53,7 @@ get_youth_poverty_data <- function() {
    
   poverty_data
 }
+
 
 # Return a dataframe containing summary of Youth Poverty data
 get_poverty_summary <- function() {
@@ -173,6 +173,3 @@ get_data_one <- function(){
   
   joined   # return data
 }
-
-
-
