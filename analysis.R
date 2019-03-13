@@ -25,7 +25,6 @@ get_youth_tobacco_data <- function () {
   # Return Tobacco Data Set
   tobacco_data
 }
-
 # Returns a data frame of the SAIPE with the data on youth (age 0-17) poverty across the 
 # nation
 get_youth_poverty_data <- function() {
