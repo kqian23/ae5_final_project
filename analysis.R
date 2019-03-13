@@ -144,6 +144,7 @@ get_tobacco_by_topic <- function() {
   tobacco_topic_ranked
 }
 
+
 # Prepare the data to answer question 1
 # Data is a joined table of poverty level each year and the percentage of frequent smokers in different genders
 get_data_one <- function(){
@@ -172,7 +173,6 @@ get_data_one <- function(){
   
   joined   # return data
 }
-
 
 
 

@@ -5,6 +5,8 @@ library("ggplot2")
 library("plotly")
 source("analysis.R")
 
+
+
 # efine a `server` function
 server <- function(input, output) {
   
@@ -125,6 +127,53 @@ server <- function(input, output) {
   # ***********************************************************************************************************************
   
   # Q2 starts here
+ 
+   # A plotOutput showing the 'plot' output (based on the user specification)
+
+    # Assign a reactive `renderPlot()` function to the outputted 'plot' value
+    output$my_plot <- renderPlot({
+      selected_values <- input$Year
+      #source in youth tobacco data
+      youth_smoking <- get_youth_tobacco_data()
+      
+      #source in youth poverty data
+      youth_poverty <- get_youth_poverty_data() 
+      
+      #filter youth smoking to exclude cessation
+      filtered_smoking <- youth_smoking %>% 
+        filter(Topic_Description == "Cigarette Use (Youth)" | Topic_Description == "Smokeless Tobacco Use (Youth)") %>%
+        #select the columns to join with youth poverty
+        select(Year, State, Data_Value)
+      
+      #select which columns to join with youth smoking
+      filtered_poverty <- youth_poverty %>% 
+        select(year, state, ages_0_to_17_in_poverty_rate, state_abbreviation)
+      
+      #join the datasets
+      joined <- left_join(filtered_smoking, filtered_poverty, 
+                          by = c("State" = "state_abbreviation")) %>% 
+        select(state, ages_0_to_17_in_poverty_rate, Data_Value, Year) %>%
+        #group by state and year
+        group_by(state, Year) %>% 
+        summarise(avg_rate_smoking = mean(Data_Value, na.rm = TRUE),
+                  ages_0_to_17_in_poverty_rate = 
+                    mean(as.numeric(ages_0_to_17_in_poverty_rate), na.rm = TRUE)) %>% 
+        filter(!is.na(state))
+      
+      plot_data <- joined %>% filter(Year == input$Year)
+      
+      
+      #use the joined data set to make a scattered plot of poverty with under age
+      # smoking as smooth to show causation 
+      p <- ggplot(data = plot_data)+
+        geom_point(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking))+
+        geom_smooth(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking))
+      
+      
+      
+      
+      p #return the plot
+    })#end of render plot    
   
   
   # Q3 starts here
@@ -179,5 +228,5 @@ server <- function(input, output) {
     
     
   })
-  
 }
+  
