@@ -10,16 +10,15 @@ source("analysis.R")
 # efine a `server` function
 server <- function(input, output) {
   
+  # ***********************************************************************************************************************
   # Q1 starts here
-  # ***********************************************************************************************************************
-  # ***********************************************************************************************************************
   
   # filter the data based on user input
   output$one_scatter <- renderPlotly({
-    
     # load data
     data_one <- get_data_one()
     
+    # setup the initial plot when no input received
     if(is.null(input$gender)) {
       scatter_plot <-ggplot(data = data_one) +
           geom_point(aes(x = poverty_rate, y = 0, color = state))+
@@ -52,26 +51,15 @@ server <- function(input, output) {
       ggplotly(scatter_plot, tooltip="state")
     }
   })
-    
-  output$test <- renderText({
-
-  })
-  
-  
-  output$map_text <- renderText({
-    
-  })
-
   
   # output for map plot
   # *******************************************
   output$map <- renderPlotly({
     
-    df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv")
-    
     # load data
     data_one <- get_data_one() 
     
+    # filter the data based on user input
     data_one <- data_one %>% 
       gather(key = smoking_gender, value = smoking_percentage, c(2,3)) %>% 
       filter(smoking_gender == input$dropdown_gender)
@@ -107,6 +95,7 @@ server <- function(input, output) {
       lakecolor = toRGB('white')
     )
     
+    # generate the choropleth map
     map <- plot_geo(data_one, locationmode = 'USA-states') %>%
       add_trace(
         z = ~smoking_percentage, text = ~hover, locations = ~state,
@@ -124,8 +113,9 @@ server <- function(input, output) {
   
   # Q1 Ends
   # ***********************************************************************************************************************
-  # ***********************************************************************************************************************
   
+  
+  # ***********************************************************************************************************************
   # Q2 starts here
  
    # A plotOutput showing the 'plot' output (based on the user specification)
