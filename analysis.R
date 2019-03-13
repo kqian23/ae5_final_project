@@ -4,8 +4,6 @@ library("dplyr")
 library("tidyr")
 
 
-View(get_youth_tobacco_data())
-View(get_youth_poverty_data())
 
 # Returns a data frame of the Youth Tobacco Survey with data on smoking for children
 # across the nation
@@ -48,7 +46,7 @@ get_youth_poverty_data <- function() {
   # Take out states from the frame that are not in the Youth Tobacco data frame
   poverty_data <- poverty_data %>% 
     group_by(state,state_abbreviation) %>% 
-    filter(state_abbreviation != "AL" &
+    filter(state_abbreviation != "AK" &
              state_abbreviation !=  "MT" &
              state_abbreviation != "NV" &
              state_abbreviation != "OR" &
@@ -145,4 +143,36 @@ get_tobacco_by_topic <- function() {
   tobacco_topic_ranked$rank <- rank(-tobacco_topic_ranked$avg_rate)
   tobacco_topic_ranked
 }
+
+# Prepare the data to answer question 1
+# Data is a joined table of poverty level each year and the percentage of frequent smokers in different genders
+get_data_one <- function(){
+  gender <- get_youth_tobacco_data() %>% 
+    filter(Topic_Description != "Cessation (Youth)" & Gender != "Overall" & Response == "Frequent") %>% 
+    select(-8) 
+  
+  # Group by year, state and gender, and then sum all of the observations in that group. So the returned data frame is 
+  # the total frequent youth tobacco usage(cigarette or smokeless, high school or middle school) in different states each year
+  gender <- aggregate(gender$Data_Value, by=list(year = gender$Year, 
+                                       state = gender$State,
+                                       genders = gender$Gender), FUN=sum)
+  gender <- spread(gender, key = genders, value = x)
+  
+  # calculate the average smoking rate from 1999 to 2017 in each state
+  gender <- gender %>% group_by(state) %>% summarize(avg_female_smoking = round(mean(Female), 2), 
+                                                     avg_male_smoking = round(mean(Male), 2))
+  
+  # prepare poverty data to be joined
+  poverty <- get_poverty_summary() %>% ungroup() %>% select(2, 4) %>% 
+    mutate(ages_0_to_17_in_poverty_rate = round(ages_0_to_17_in_poverty_rate, 2))
+  
+  # join average smoking gender data and average poverty data
+  joined <- gender %>% left_join(poverty, by = c("state" = "state_abbreviation"))
+  colnames(joined)[4] <- "poverty_rate"
+  
+  joined   # return data
+}
+
+
+
 

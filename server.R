@@ -2,13 +2,127 @@ library("shiny")
 library("dplyr")
 library("tidyr")
 library("ggplot2")
+library("plotly")
 source("analysis.R")
 
 # efine a `server` function
 server <- function(input, output) {
   
   # Q1 starts here
+  # ***********************************************************************************************************************
+  # ***********************************************************************************************************************
   
+  # filter the data based on user input
+  output$one_scatter <- renderPlotly({
+    
+    # load data
+    data_one <- get_data_one()
+    
+    if(is.null(input$gender)) {
+      scatter_plot <-ggplot(data = data_one) +
+          geom_point(aes(x = poverty_rate, y = 0, color = state))+
+          ylim(0, 40) + xlim(5, 31) +
+          theme(legend.position="none") +
+          xlab("Poverty Percentage") +
+          ylab("Smoking Percentage of Selected Gender") 
+    } else {
+      # filter the observations based on user input
+      data_one <- data_one %>% 
+        gather(key = smoking_gender, value = smoking_percentage, c(2,3)) %>% 
+        filter(smoking_gender == input$gender)
+      
+      # formate hover info
+      plot_ly(data = data_one,
+              x = ~poverty_rate,
+              y = ~smoking_percentage,
+              color = ~state,
+              hoverinfo = 'text',
+              text = ~state)
+      
+      # generate thte plot
+      scatter_plot <- ggplot(data = data_one) +
+          geom_point(aes(x = poverty_rate, y = smoking_percentage, color = state)) +
+          geom_smooth(aes(x = poverty_rate, y = smoking_percentage), method = "lm", size = 0.5) +
+          ylim(0, 40) + xlim(5, 31) +
+          theme(legend.position="none")+
+          xlab("Poverty Percentage") +
+          ylab("Smoking Percentage of Selected Gender")
+      ggplotly(scatter_plot, tooltip="state")
+    }
+  })
+    
+  output$test <- renderText({
+
+  })
+  
+  
+  output$map_text <- renderText({
+    
+  })
+
+  
+  # output for map plot
+  # *******************************************
+  output$map <- renderPlotly({
+    
+    df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv")
+    
+    # load data
+    data_one <- get_data_one() 
+    
+    data_one <- data_one %>% 
+      gather(key = smoking_gender, value = smoking_percentage, c(2,3)) %>% 
+      filter(smoking_gender == input$dropdown_gender)
+    
+    # Add the missing states and set their values to NA
+    state <- c("AK", "MT", "NV", "OR", "WA")
+    smoking_percentage <- c(-1,-1,-1,-1,-1)
+    smoking_gender <- c(-1,-1,-1,-1,-1)
+    poverty_rate <- c(-1,-1,-1,-1,-1)
+    data_missing <- data.frame(state, poverty_rate, smoking_gender, smoking_percentage)
+    
+    # add a hover row for missing data
+    namevector <- c("hover")
+    data_missing[ , namevector] <- NA
+    data_missing[, "hover"] <- paste0("State: NA", '<br>',
+                                      "Poverty Rate: NA")
+    
+    # add a hover row for existing data
+    data_temp <- data_one %>% mutate(hover = paste0("State: ", state, "<br>",
+                                                    "Poverty_Rate: ", poverty_rate, "%"))
+    
+    # combine missing and existing data
+    data_one <- rbind(data_temp, data_missing)
+    
+    
+    # give state boundaries a white border
+    l <- list(color = toRGB("white"), width = 2)
+    # specify some map projection/options
+    g <- list(
+      scope = 'usa',
+      projection = list(type = 'albers usa'),
+      showlakes = TRUE,
+      lakecolor = toRGB('white')
+    )
+    
+    map <- plot_geo(data_one, locationmode = 'USA-states') %>%
+      add_trace(
+        z = ~smoking_percentage, text = ~hover, locations = ~state,
+        color = ~smoking_percentage, colors = 'Purples', 
+        zauto = FALSE, zmax = 35
+      ) %>%
+      colorbar(title = "Smoking Percentage") %>%
+      layout(
+        title = paste(names(input$gender), "Youth Smoking Percentage from 1999 to 2017"),
+        geo = g,
+        autosize = T
+      )
+    map    # return the map plot
+  })
+  
+  # Q1 Ends
+  # ***********************************************************************************************************************
+  # ***********************************************************************************************************************
   
   # Q2 starts here
   
