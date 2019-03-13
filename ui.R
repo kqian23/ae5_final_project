@@ -45,9 +45,8 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
                                   # A `selectInput()` labeled "Select a state". This dropdown should let
                                   # the user pick one of the states in the joined data set.
                                   selectInput(inputId = "Year", label = "Select a Year", 
-                                              choices = select_values, selected = "2000")
-                                  
-                                ),
+                                              choices = select_values, selected = "1999")
+                                  ),
                                 mainPanel(
                                   plotOutput(outputId = "my_plot")
                                 )
@@ -57,6 +56,7 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
 
 question_three_page <- tabPanel(
   "Poverty and Smoking Cessation",
+  titlePanel("asf"),
   sidebarLayout(
     sidebarPanel(
       selectInput(
@@ -80,7 +80,7 @@ question_three_page <- tabPanel(
       )
     ),
     mainPanel(
-      plotOutput(
+     plotOutput(
         outputId = "cessation"
       )
     )

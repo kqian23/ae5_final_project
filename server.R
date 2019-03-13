@@ -13,13 +13,7 @@ server <- function(input, output) {
   
   
   # Q2 starts here
- 
-
-    
-    
-
-    
-    # A plotOutput showing the 'plot' output (based on the user specification)
+  # A plotOutput showing the 'plot' output (based on the user specification)
 
     # Assign a reactive `renderPlot()` function to the outputted 'plot' value
     output$my_plot <- renderPlot({
@@ -44,13 +38,15 @@ server <- function(input, output) {
       joined <- left_join(filtered_smoking, filtered_poverty, 
                           by = c("State" = "state_abbreviation")) %>% 
         select(state, ages_0_to_17_in_poverty_rate, Data_Value, Year) %>%
-        #group by state and year
+        #group by state and year and summarise the poverty rate and youth 
+        #smoking rate, filter out NA state values
         group_by(state, Year) %>% 
         summarise(avg_rate_smoking = mean(Data_Value, na.rm = TRUE),
                   ages_0_to_17_in_poverty_rate = 
                     mean(as.numeric(ages_0_to_17_in_poverty_rate), na.rm = TRUE)) %>% 
         filter(!is.na(state))
       
+      #filter joined dataframe by Year
       plot_data <- joined %>% filter(Year == input$Year)
       
       
