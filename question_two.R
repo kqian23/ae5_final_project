@@ -20,9 +20,10 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
                                                 "2014", "2015", "2016", "2017"
                                               ), selected = "2000"))
                                   
-                                ),
+                                ,
                                 mainPanel(
-                                  plotOutput(outputId = "my_plot")),
+                                  plotOutput(outputId = "my_plot")
+                                )),
                                   br(),br(),
                                   h2("The answer to this question will help us understand why people begin to start smoking at a young age."),
                                   p("It is well known that smoking will cause significant health issues over a long period of time. 
@@ -32,10 +33,12 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
                                     categorized as Schedule I by the DEA (dea.gov).")
                                   ,br(),br(),
                                 h2("What does the data tell us?"),
-                                br(),br(),
+                                br(),
                                 p("The data does not show a strong causation, but it does show a relation between youth poverty rates and 
                                   underage smoking. For example, in 2008 there is a strong trend between underage smoking and youth 
-                                  poverty rate while in 2000 the trend isn't as evident. Never the less, recognizing young people undergoing 
-                                  the difficulties of poverty are vulnerable and begin smoking at a young age.")
-                                  
-                                  
+                                  poverty rate while in 2000 the trend isn't as evident. A state with a poverty rate of around 29 percent has an underage
+                                  smoking rate of 22 percent. Likewise, a state with around 10 percent poverty rate has an average smoking rate percentage of just a little above 10.
+                                  Never the less, recognizing young people undergoing 
+                                  the difficulties of poverty are vulnerable to begin smoking at a young age.")
+                              )                              
+                          
