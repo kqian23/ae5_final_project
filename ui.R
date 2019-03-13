@@ -30,6 +30,24 @@ sources_page <- tabPanel("Sources",
 
 question_one_page <- tabPanel("Poverty & Gender of Smokers")
 
+
+question_two_page <- tabPanel("Poverty & Underage Smoking",
+                              sidebarLayout(
+                                sidebarPanel(
+                                  # A `titlePanel` with the title "Poverty and Youth Tobacco by State"
+                                  titlePanel("Poverty and Youth Tobacco by State"),
+                                  
+                                  # A `selectInput()` labeled "Select a state". This dropdown should let
+                                  # the user pick one of the states in the joined data set.
+                                  selectInput(inputId = "Year", label = "Select a Year", 
+                                              choices = select_values, selected = "2000")
+                                  
+                                ),
+                                mainPanel(
+                                  plotOutput(outputId = "my_plot")
+                                )
+                              ))
+
  
 
 question_four_page <- tabPanel("Question 4",
@@ -65,9 +83,7 @@ ui <- fluidPage(
   navbarPage("",
     home_page,
      question_one_page,
-     tabPanel("Q2"
-              # Q2 Code starts here
-     ),
+     question_two_page,
      tabPanel("Q3"
               # Q3 Code starts here
      ),
