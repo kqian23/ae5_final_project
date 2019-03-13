@@ -2,39 +2,39 @@ library("shiny")
 library("plotly")
 source("server.R")
 
-
-
-
 # ******************************************************************************************
 # Pages
 
-home_page <- tabPanel("Home",
-                      includeCSS("www/header.css"),
-                      includeHTML("www/header.html"),
-                      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
-                      titlePanel(h1("Study on Youth Poverty and Youth Smoking", align = "center", style = "font-size: 70px")),
-                      br(), br(), 
-                      h3("Feel free to click through each of our question tabs on the page above to learn about our study of the relation between youth poverty and youth smoking", align = "center", style = "font-size: 35px")
+home_page <- tabPanel(
+  "Home",
+  #  includeCSS("www/header.css"),
+  includeHTML("www/header.html"),
+  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(),
+  br(), br(), br(), br(),
+  titlePanel(h1("Study on Youth Poverty and Youth Smoking",
+    align = "center",
+    style = "font-size: 70px"
+  ))
 )
 
-team_page <- tabPanel("Team",
-                      includeCSS("www/header.css"),
-                      includeHTML("www/header.html"),
-                      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
-                      titlePanel(h1("Our Team", align = "left", style = "font-size: 70px")),
-                      br(), br(),
-                      includeCSS("www/profile.css"),
-                      includeHTML("www/profile.html")
-                      
+team_page <- tabPanel(
+  "Team",
+  # includeCSS("www/header.css"),
+  includeHTML("www/header.html"),
+  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(),
+  br(), br(), br(), br(),
+  titlePanel(h1("Our Team", align = "left", style = "font-size: 70px")),
+  br(), br(),
+  includeCSS("www/profile.css"),
+  includeHTML("www/profile.html")
 )
 
-sources_page <- tabPanel("Sources",
-                         includeCSS("www/header.css"),
-                         includeHTML("www/header.html"),
-                         br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(), br(),
-                         titlePanel(h1("Our Sources", align = "center", style = "font-size: 70px")),
-                         br(), br(),
-                         includeHTML("www/sources.html")
+sources_page <- tabPanel(
+  "Sources",
+  includeHTML("www/header.html"),
+  br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(), br(),
+  br(), br(), br(), br(), br(), br(),
+  includeHTML("www/sources.html")
 )
 
 question_one_page <- tabPanel("Poverty & Gender of Smokers",
@@ -50,7 +50,7 @@ question_one_page <- tabPanel("Poverty & Gender of Smokers",
                                          # implant check box on the right side bar
                                          sidebarLayout(position = "right",
                                                        sidebarPanel(
-                                                         checkboxGroupInput("gender",
+                                                         checkboxGroupInput("gender_one",
                                                                             label = "Select Gender",
                                                                             choices = c("Male" = "avg_male_smoking", "Female" = "avg_female_smoking"),
                                                                             selected = "Male"
@@ -143,7 +143,7 @@ question_three_page <- tabPanel(
         )
       ),
       radioButtons(
-        inputId = "gender",
+        inputId = "gender_three",
         label = "Select a gender of interest to compare against",
         choices = list(
           "Male",
@@ -153,8 +153,23 @@ question_three_page <- tabPanel(
       )
     ),
     mainPanel(
-      plotOutput(
-        outputId = "cessation"
+      tabsetPanel(
+        type = "tabs",
+        tabPanel("Table", tableOutput("table")),
+        tabPanel(
+          "plot", plotOutput(outputId = "cessation")
+        ),
+        
+        tabPanel(
+          "Analysis",
+          h4("For the states that has the highest cessation percentage in a given
+             year, what is its poverty level?"),
+          h5("Does the percentage of the attempt to quit smoking relate to poverty?"),
+          h5("We would like to know if income plays a role for children to make 
+             the decision of whether to quit smoking"),
+          p("In anaanalizing ")
+        )
+      
       )
     )
   )
@@ -235,7 +250,6 @@ question_four_page <- tabPanel("Poverty and Education of Smokers",
 
 # ******************************************************************************************
 # Main ui
-
 ui <- fluidPage(
   includeCSS("www/bootstrap.css"),
   includeCSS("www/header.css"),

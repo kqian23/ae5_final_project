@@ -9,6 +9,7 @@ source("analysis.R")
 
 # efine a `server` function
 server <- function(input, output) {
+  
  
   # Q1 starts here
   # ******************************************************************************************
@@ -18,7 +19,7 @@ server <- function(input, output) {
     data_one <- get_data_one()
     
     # setup the initial plot when no input received
-    if(is.null(input$gender)) {
+    if(is.null(input$gender_one)) {
       scatter_plot <-ggplot(data = data_one) +
           geom_point(aes(x = poverty_rate, y = 0, color = state))+
           ylim(0, 40) + xlim(5, 31) +
@@ -29,7 +30,7 @@ server <- function(input, output) {
       # filter the observations based on user input
       data_one <- data_one %>% 
         gather(key = smoking_gender, value = smoking_percentage, c(2,3)) %>% 
-        filter(smoking_gender == input$gender)
+        filter(smoking_gender == input$gender_one)
       
       # formate hover info
       plot_ly(data = data_one,
@@ -103,7 +104,7 @@ server <- function(input, output) {
       ) %>%
       colorbar(title = "Smoking Percentage") %>%
       layout(
-        title = paste(names(input$gender), "Youth Smoking Percentage from 1999 to 2017"),
+        title = paste(names(input$dropdown_gender), "Youth Smoking Percentage from 1999 to 2017"),
         geo = g,
         autosize = T
       )
@@ -159,9 +160,88 @@ server <- function(input, output) {
   
   # Q3 starts here
   # ******************************************************************************************
-  
+    output$cessation <- renderPlot({
+      poverty <- get_youth_poverty_data()
+      
+      colnames(poverty)[colnames(poverty) == "state"] <- "states"
+      colnames(poverty)[colnames(poverty) == "state_abbreviation"] <- "State"
+      
+      # filter out poverty data set
+      poverty_data_plot <- poverty %>%
+        filter(year == input$years)
+      
+      # filter out tobaco data set
+      cessation <- get_youth_tobacco_data() %>%
+        select(-Geo_Location, -Response) %>%
+        filter(
+          Topic_Description == "Cessation (Youth)", Year == input$years,
+          Gender == input$gender_three
+        )
+      
+      joined_cessation_poverty_data <- left_join(cessation, poverty,
+                                                 by = c("State")
+      ) %>%
+        select(
+          Year, State, Gender, Education, Data_Value,
+          ages_0_to_17_in_poverty_rate
+        )
+      
+      joined_cessation_poverty_data <- mutate(joined_cessation_poverty_data,
+                                              poverty_rate = as.numeric(ages_0_to_17_in_poverty_rate)
+      ) 
+      
+      poverty_perc_bin_labels <-
+        c(
+          "0% to 5%", "5% to 10%", "10% to 15%", "15% to 20%", "20% to 25%",
+          "25% to 30%", "30% to 35%"
+        )
+      percentage_bins <-
+        cut(
+          joined_cessation_poverty_data$poverty_rate,
+          c(0, 5, 10, 15, 20, 25, 30, 35), poverty_perc_bin_labels
+        )
+      
+      ggplot(data = joined_cessation_poverty_data) +
+        geom_col(mapping = aes(x = percentage_bins, y = Data_Value, fill = Education)) + labs(
+          title = paste(
+            "Smoking Cessation Vs. Poverty Rates for", input$gender_three,
+            "in the year of", input$years,
+            input$selected_year, "in the United States"),
+          x = "Poverty Rate", y = "Cessation") +
+        scale_fill_brewer(palette = "Accent")
+    }) 
+    
+    # output a data table
+    output$table <- renderTable({
+      
+      poverty <- get_youth_poverty_data()
+      colnames(poverty)[colnames(poverty) == "state"] <- "states"
+      colnames(poverty)[colnames(poverty) == "state_abbreviation"] <- "State"
+      
+      poverty_data_table <- poverty %>%
+        filter(year == input$years) 
+      
+      # filter out tobaco data set
+      cessation_table <- get_youth_tobacco_data() %>%
+        select(-Geo_Location, -Response) %>%
+        filter(
+          Topic_Description == "Cessation (Youth)", Year == input$years,
+          Gender == input$gender_three
+        ) 
+      
+      
+      joined_cessation_poverty_data_table <- left_join(cessation_table, poverty_data_table, 
+                                                       by = c("State")) %>% 
+        select(
+          Year, State, Gender, Education, Data_Value,
+          ages_0_to_17_in_poverty_rate
+        ) %>% 
+        na.omit() %>%  
+        head(n = 10)
+    })
+    
+    
   # Q4 starts here
-  # ******************************************************************************************
   output$education <- renderPlot({
     
     # Get youth tobacco data set
