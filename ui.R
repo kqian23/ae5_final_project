@@ -48,7 +48,18 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
                                               choices = select_values, selected = "1999")
                                   ),
                                 mainPanel(
-                                  plotOutput(outputId = "my_plot")
+                                  plotOutput(outputId = "my_plot"),
+                                  h2("Is there causation between youth poverty 
+                                     and underage smoking?"),
+                                  h3("By joining the youth tobacco dataset and 
+                                     the youth poverty dataset we created a new 
+                                     dataset observing the state, year, 
+                                     0-17-year-old poverty rate, and underage 
+                                     smoking. The visualization allows the user 
+                                     to choose a year and see if there is causation 
+                                     with the youth poverty rate and underage smoking of that year. 
+                                     According to the data there is no causation between youth 
+                                     poverty rate and underage smoking, but there is moderate correlation.")
                                 )
                               ))
 
@@ -57,34 +68,7 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
 question_three_page <- tabPanel(
   "Poverty and Smoking Cessation",
   titlePanel("asf"),
-  sidebarLayout(
-    sidebarPanel(
-      selectInput(
-        inputId = "years",
-        label = "Select a year between 1992 and 2017",
-        choices = list(
-          "1999", "2000", "2001", "2002", "2003",
-          "2004", "2005", "2006", "2007", "2008",
-          "2009", "2010", "2011", "2012", "2013",
-          "2014", "2015", "2016", "2017"
-        )
-      ),
-      radioButtons(
-        inputId = "gender",
-        label = "Select a gender of interest to compare against",
-        choices = list(
-          "Male",
-          "Female",
-          "Overall"
-        )
-      )
-    ),
-    mainPanel(
-     plotOutput(
-        outputId = "cessation"
-      )
-    )
-  )
+  sidebarLayout()
 )
 
 
