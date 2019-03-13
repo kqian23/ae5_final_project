@@ -158,10 +158,13 @@ server <- function(input, output) {
     })#end of render plot    
   
   
-  # Q3 starts here
+    # Q3 starts here
+    
+    #create bar chart polot
     output$cessation <- renderPlot({
+      # get poverty data
       poverty <- get_youth_poverty_data()
-      
+      # rename colmun for merging
       colnames(poverty)[colnames(poverty) == "state"] <- "states"
       colnames(poverty)[colnames(poverty) == "state_abbreviation"] <- "State"
       
@@ -176,7 +179,7 @@ server <- function(input, output) {
           Topic_Description == "Cessation (Youth)", Year == input$years,
           Gender == input$gender_three
         )
-      
+      # join the two data sets and select for df
       joined_cessation_poverty_data <- left_join(cessation, poverty,
                                                  by = c("State")
       ) %>%
@@ -185,21 +188,23 @@ server <- function(input, output) {
           ages_0_to_17_in_poverty_rate
         )
       
+      # convert ages_0_to_17_in_poverty_rate to numeric for cut
       joined_cessation_poverty_data <- mutate(joined_cessation_poverty_data,
                                               poverty_rate = as.numeric(ages_0_to_17_in_poverty_rate)
       ) 
-      
+      # lables for cut function
       poverty_perc_bin_labels <-
         c(
           "0% to 5%", "5% to 10%", "10% to 15%", "15% to 20%", "20% to 25%",
           "25% to 30%", "30% to 35%"
         )
+      # breake ages_0_to_17_in_poverty_rate in to 8 sections
       percentage_bins <-
         cut(
           joined_cessation_poverty_data$poverty_rate,
           c(0, 5, 10, 15, 20, 25, 30, 35), poverty_perc_bin_labels
         )
-      
+      # create a bar chart plot
       ggplot(data = joined_cessation_poverty_data) +
         geom_col(mapping = aes(x = percentage_bins, y = Data_Value, fill = Education)) + labs(
           title = paste(
@@ -207,16 +212,17 @@ server <- function(input, output) {
             "in the year of", input$years,
             input$selected_year, "in the United States"),
           x = "Poverty Rate", y = "Cessation") +
-        scale_fill_brewer(palette = "Accent")
+        scale_fill_brewer(palette = "Accent") # change color
     }) 
     
     # output a data table
     output$table <- renderTable({
-      
+      # get poverty data
       poverty <- get_youth_poverty_data()
+      # rename colmun for merging
       colnames(poverty)[colnames(poverty) == "state"] <- "states"
       colnames(poverty)[colnames(poverty) == "state_abbreviation"] <- "State"
-      
+      #filter out data table
       poverty_data_table <- poverty %>%
         filter(year == input$years) 
       
@@ -228,7 +234,7 @@ server <- function(input, output) {
           Gender == input$gender_three
         ) 
       
-      
+      # join dataset to for creatinf a table
       joined_cessation_poverty_data_table <- left_join(cessation_table, poverty_data_table, 
                                                        by = c("State")) %>% 
         select(
@@ -236,8 +242,10 @@ server <- function(input, output) {
           ages_0_to_17_in_poverty_rate
         ) %>% 
         na.omit() %>%  
-        head(n = 10) 
+        head(n = 10) # get the top 10 states
+      # arrage data set in Data_Value
       joined_cessation_poverty_data_table <-  joined_cessation_poverty_data_table[order(-joined_cessation_poverty_data_table$Data_Value),]
+      # rename columns for the data table
       colnames(joined_cessation_poverty_data_table)[5] <- "Cessation Percentage"
       colnames(joined_cessation_poverty_data_table)[6] <- "Poverty Rate"
       joined_cessation_poverty_data_table
