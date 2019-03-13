@@ -127,9 +127,9 @@ ui <- fluidPage(
     "",
     home_page,
     question_one_page,
+    question_two_page,
     tabPanel(
-      "Q2"
-      # Q2 Code starts here
+      
     ),
     question_three_page,
     question_four_page,
