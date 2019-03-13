@@ -4,7 +4,7 @@ library("plotly")
 question_two_page <- tabPanel("Poverty & Underage Smoking",
                               # A `titlePanel` with the title "Poverty and Youth Tobacco Usage by Year"
                               titlePanel(
-                                "Is there causation with youth suffering from poverty and underage smoking?"
+                                "Is there correlation with youth suffering from poverty and underage smoking?"
                                 ),
                               br(), br(),
                               sidebarLayout(
@@ -34,7 +34,7 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
                                   ,
                                   h2("What does the data tell us?"),
                                   br(),
-                                  p("The data does not show a strong causation, but it does show a relation between youth poverty rates and 
+                                  p("The data does not show a strong correlation, but it does show a relation between youth poverty rates and 
                                     underage smoking. For example, in 2008 there is a strong trend between underage smoking and youth 
                                     poverty rate while in 2000 the trend isn't as evident. A state with a poverty rate of around 29 percent has an underage
                                     smoking rate of 22 percent. Likewise, a state with around 10 percent poverty rate has an average smoking rate percentage of just a little above 10 percent in the year 2000.
