@@ -7,7 +7,7 @@ source("analysis.R")
 
 
 
-# efine a `server` function
+# Define a `server` function
 server <- function(input, output) {
   
  
