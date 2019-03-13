@@ -263,7 +263,6 @@ server <- function(input, output) {
       key = "Education",
       value = "Data_Value"
     )
-    View(youth_tobacco_data_set)
     # Get youth poverty data set
     youth_poverty_data_set <- get_youth_poverty_data()
     
@@ -306,13 +305,10 @@ server <- function(input, output) {
      geom_col(mapping = aes(x = percentage_bins, y = percentage, fill = education), position = "dodge") + 
       labs (
         x = "Poverty Rates",
-        y = paste0("Avg % ", input$gender, " students who smoke in ", input$year),
-        title = paste0("Avg % ", input$gender, " students who smoke in ", input$year, " relative to poverty rate"),
+        y = paste0("Avg % ", input$gender_four, " students who smoke in ", input$year),
+        title = paste0("Avg % ", input$gender_four, " students who smoke in ", input$year, " relative to poverty rate"),
         fill = "Education Level"
       )
-    
-    
-    
   })
 }
   
