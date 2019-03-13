@@ -130,6 +130,8 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
 
 question_three_page <- tabPanel(
   "Poverty and Smoking Cessation",
+  titlePanel("For the states that has the highest cessation percentage in a given
+             year, what is its poverty level?"),
   sidebarLayout(
     sidebarPanel(
       selectInput(
@@ -159,13 +161,10 @@ question_three_page <- tabPanel(
         tabPanel(
           "plot", plotOutput(outputId = "cessation")
         ),
-        
         tabPanel(
           "Analysis",
-          h4("For the states that has the highest cessation percentage in a given
-             year, what is its poverty level?"),
           h5("Does the percentage of the attempt to quit smoking relate to poverty?"),
-          h5("We would like to know if income plays a role for children to make 
+          h6("We would like to know if income plays a role for children to make 
              the decision of whether to quit smoking"),
           p("In anaanalizing ")
         )
