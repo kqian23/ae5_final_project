@@ -160,8 +160,6 @@ question_three_page <- tabPanel(
   )
 )
 
-
-
 question_four_page <- tabPanel("Poverty and Education of Smokers",
                                titlePanel(
                                  "Does poverty rate correlate to a difference in high school tobacco usage and middle school usage?"
