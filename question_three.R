@@ -42,7 +42,7 @@ question_three_page <- tabPanel(
         # create Analysis tab
         tabPanel(
           "Analysis",
-          h5("Does the percentage of the attempt to quit smoking relate to 
+          h1("Does the percentage of the attempt to quit smoking relate to 
              poverty?"),
           h6("We would like to know if income plays a role for children to make 
              the decision of whether to quit smoking"),

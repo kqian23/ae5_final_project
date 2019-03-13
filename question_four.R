@@ -8,7 +8,6 @@ question_four_page <- tabPanel("Poverty and Education of Smokers",
                                br(), br(),
                                sidebarLayout(
                                  sidebarPanel(
-                                   
                                    selectInput(
                                      inputId = "year",
                                      label = "Select a year between 1992 and 2016",
@@ -37,7 +36,6 @@ question_four_page <- tabPanel("Poverty and Education of Smokers",
                                    )
                                  )
                                ), 
-                               
                                h2("Why does this question matter?"),
                                p("This question helps us understand when students pick up smoking in different poverty levels. If the difference in high school 
                                  tobacco usage versus middle school decreases as poverty rates rise, it means that more students pick up smoking in middle school as 
