@@ -235,7 +235,11 @@ server <- function(input, output) {
           ages_0_to_17_in_poverty_rate
         ) %>% 
         na.omit() %>%  
-        head(n = 10)
+        head(n = 10) 
+      joined_cessation_poverty_data_table <-  joined_cessation_poverty_data_table[order(-joined_cessation_poverty_data_table$Data_Value),]
+      colnames(joined_cessation_poverty_data_table)[5] <- "Cessation Percentage"
+      colnames(joined_cessation_poverty_data_table)[6] <- "Poverty Rate"
+      joined_cessation_poverty_data_table
     })
     
     

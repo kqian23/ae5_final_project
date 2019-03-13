@@ -32,7 +32,6 @@ question_four_page <- tabPanel("Poverty and Education of Smokers",
                                    )
                                  ), 
                                  mainPanel(
-                                   
                                    plotOutput(
                                      outputId = "education"
                                    )
@@ -72,4 +71,4 @@ question_four_page <- tabPanel("Poverty and Education of Smokers",
                                  One potential reason why difference in smokeless tobacco might not have a significant trend is because smokeless tobacco is friendlier to younger populations than
                                  cigarettes. As a result, middle schoolers and high schoolers at any poverty rate can pick them up. Furthermore, smokeless tobacco is easier to hide than cigarettes,
                                  making them more friendly to all ages from all poverty rates.")
-                               )
+)

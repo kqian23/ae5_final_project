@@ -23,7 +23,7 @@ question_one_page <- tabPanel("Poverty & Gender of Smokers",
                                                        # main panel for analysis and data presentation
                                                        mainPanel(
                                                          plotlyOutput(outputId = "one_scatter"),
-                                                         br(),
+                                                         br(), br(),
                                                          p("The following scatter plot shows the correlation of averaged poverty percentage and the averaged youth smoking percentage of the selected gender from 1999 to 2017. Each colorful dot represents a state and together we could see a general relationship from the linear regression fit of the scatter points(the blue line), with the shaded area as range of standard error. The data used for presentation is filtered for only FREQUENTLY youth smokers, which is the major group of concern in the aspect of health and growth."),
                                                          p("For male youth, the slope of the regression line is approximately 0.55, which shows a moderate positive correlation. This means that the increase of poverty rate in a state has a moderate correlation with the increase of male youth smokers in that state. "),
                                                          p("On the female side, the regression line has a slope of around 0.125, which shows a very weak positive correlation between female youth smoking and poverty rate."),
