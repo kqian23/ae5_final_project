@@ -8,7 +8,7 @@ library("tidyr")
 # Returns a data frame of the Youth Tobacco Survey with data on smoking for children
 # across the nation
 get_youth_tobacco_data <- function () {
-  tobacco_data_raw <- read.csv("data/Youth_Tobacco_Survey__YTS__Data.csv", stringsAsFactors = FALSE)
+  tobacco_data_raw <- read.csv("data/Youth_Tobacco_Survey__YTS__Data.csv", stringsAsFactors = FALSE, fileEncoding="UTF-8-BOM")
   tobacco_data <- tobacco_data_raw %>% 
     select(YEAR, LocationAbbr, Gender, Education, Data_Value, Response, TopicDesc, GeoLocation) 
   
@@ -30,7 +30,7 @@ get_youth_tobacco_data <- function () {
 # Returns a data frame of the SAIPE with the data on youth (age 0-17) poverty across the 
 # nation
 get_youth_poverty_data <- function() {
-  poverty_uri <- "api.census.gov/data/timeseries/poverty/saipe?get=NAME,SAEPOV0_17_PT,SAEPOVRT0_17_PT,SAEMHI_PT,STABREV&for=state:*&YEAR=1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  poverty_uri <- "https://api.census.gov/data/timeseries/poverty/saipe?get=NAME,SAEPOV0_17_PT,SAEPOVRT0_17_PT,SAEMHI_PT,STABREV&for=state:*&YEAR=1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
   poverty_header <- GET(poverty_uri)
   poverty_content <- content(poverty_header, type = "text", encoding = "UTF-8")
   poverty_data <- fromJSON(poverty_content)

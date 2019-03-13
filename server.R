@@ -10,7 +10,7 @@ source("analysis.R")
 # efine a `server` function
 server <- function(input, output) {
   
-  # ***********************************************************************************************************************
+ 
   # Q1 starts here
   
   # filter the data based on user input
@@ -53,7 +53,7 @@ server <- function(input, output) {
   })
   
   # output for map plot
-  # *******************************************
+  
   output$map <- renderPlotly({
     
     # load data
@@ -112,10 +112,7 @@ server <- function(input, output) {
   })
   
   # Q1 Ends
-  # ***********************************************************************************************************************
   
-  
-  # ***********************************************************************************************************************
   # Q2 starts here
  
    # A plotOutput showing the 'plot' output (based on the user specification)
