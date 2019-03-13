@@ -151,7 +151,8 @@ server <- function(input, output) {
       # smoking as smooth to show causation 
       p <- ggplot(data = plot_data)+
         geom_point(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking))+
-        geom_smooth(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking), method = "lm")
+        geom_smooth(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking), method = "lm")+
+        labs(x = "Youth Poverty Rate", y = "Average Smoking Rate", title = "Youth Poverty Rate and Underage Smoking")
 
       p #return the plot
     })#end of render plot    
