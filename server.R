@@ -22,11 +22,11 @@ server <- function(input, output) {
     # Get youth tobacco data set
     youth_tobacco_data_set <- get_youth_tobacco_data() 
     
-    input = list()
-    input$year = "2017"
-    input$type = "Cigarette Use (Youth)"
-    input$gender = "Overall"
-    input$frequency = "Ever"
+   # input = list()
+   #  input$year = "2017"
+   # input$type = "Cigarette Use (Youth)"
+  #  input$gender = "Overall"
+   # input$frequency = "Ever"
     
     youth_tobacco_data_set <- youth_tobacco_data_set %>% 
       filter(Year == input$year) %>%  # Filter for chosen year
