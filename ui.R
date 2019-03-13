@@ -1,6 +1,28 @@
 library("shiny")
 source("server.R")
 
+# ******************************************************************************************
+# Main ui
+
+ui <- fluidPage(
+  includeCSS("www/bootstrap.css"),
+  includeCSS("www/header.css"),
+  navbarPage(
+    "",
+    home_page,
+    question_one_page,
+    question_two_page,
+    question_three_page,
+    question_four_page,
+    team_page,
+    sources_page
+  )
+)
+
+
+# ******************************************************************************************
+# Pages
+
 home_page <- tabPanel(
   "Home",
   #  includeCSS("www/header.css"),
@@ -33,15 +55,17 @@ sources_page <- tabPanel(
 
 
 
-
 question_one_page <- tabPanel("Poverty & Gender of Smokers",
                               h3("How does poverty rate affect male youth tobacco usage versus female youth tobacco usage?"),
                               br(),
                               p("Why does this question matter?"),
                               p("This question helps us understand how poverty rates affect the decision to smoke in males versus females. Through this, we can see what gender has a higher tendency to smoke in low poverty environments, and anti-smoking campaigns can focus in on that demographic to reduce harm."),
                               br(),
+                              # Two tbas for two plots
                               tabsetPanel(
+                                # First plot: scatter plot of avg poverty rate and avg smoking rate
                                 tabPanel("Explore Correlation",
+                                         # implant check box on the right side bar
                                          sidebarLayout(position = "right",
                                                        sidebarPanel(
                                                          checkboxGroupInput("gender",
@@ -50,6 +74,7 @@ question_one_page <- tabPanel("Poverty & Gender of Smokers",
                                                                             selected = "Male"
                                                          )
                                                        ),
+                                                       # main panel for analysis and data presentation
                                                        mainPanel(
                                                          plotlyOutput(outputId = "one_scatter"),
                                                          br(),
@@ -60,13 +85,16 @@ question_one_page <- tabPanel("Poverty & Gender of Smokers",
                                                        )
                                          )
                                 ),
+                                # second panel: choropleth map of avg smoking level
                                 tabPanel("View Data On Map",
+                                         # implant dropdown box on the right side bar
                                          sidebarLayout(position = "right",
                                                        sidebarPanel(
                                                          selectInput("dropdown_gender",
                                                                      label = "Select Gender",
                                                                      choices = c("Male" = "avg_male_smoking", "Female" = "avg_female_smoking"))
                                                        ),
+                                                       # main panel for map presentation and analysis
                                                        mainPanel(
                                                          p("This choropleth map shows the averaged smoking percentage of the selected race in the united states. The different color of each state indicate the level of smoking percentage, which deeper the color is, greater the smoking percentage of the selected gender in that state. You could compare the difference of smoking distribution between male youth and female youth by selecting the dropdown menu. Furthermore, the poverty information of a particular state will be shown when mouse is hovered on that area. *States where data is not available is shown white and will display a value of -1 when you hover on it. "),
                                                          br(),
@@ -184,17 +212,4 @@ question_four_page <- tabPanel(
 )
 
 
-ui <- fluidPage(
-  includeCSS("www/bootstrap.css"),
-  includeCSS("www/header.css"),
-  navbarPage(
-    "",
-    home_page,
-    question_one_page,
-    question_two_page,
-    question_three_page,
-    question_four_page,
-    team_page,
-    sources_page
-  )
-)
+
