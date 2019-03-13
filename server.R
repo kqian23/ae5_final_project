@@ -12,7 +12,7 @@ server <- function(input, output) {
   
  
   # Q1 starts here
-  # ******************************************************************************************
+
   # filter the data based on user input
   output$one_scatter <- renderPlotly({
     # load data
@@ -114,7 +114,6 @@ server <- function(input, output) {
 
   
   # Q2 starts here
-  # ******************************************************************************************
    # A plotOutput showing the 'plot' output (based on the user specification)
     # Assign a reactive `renderPlot()` function to the outputted 'plot' value
     output$my_plot <- renderPlot({
@@ -159,7 +158,6 @@ server <- function(input, output) {
   
   
   # Q3 starts here
-  # ******************************************************************************************
     output$cessation <- renderPlot({
       poverty <- get_youth_poverty_data()
       

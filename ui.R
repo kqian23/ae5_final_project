@@ -5,7 +5,7 @@ source("question_two.R")
 source("question_three.R")
 source("question_four.R")
 
-# ******************************************************************************************
+
 # Pages
 
 home_page <- tabPanel(
@@ -43,7 +43,7 @@ sources_page <- tabPanel(
 
 
 
-# ******************************************************************************************
+
 # Main ui
 ui <- fluidPage(
   includeCSS("www/bootstrap.css"),
