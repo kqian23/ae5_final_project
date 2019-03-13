@@ -37,5 +37,5 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
                                   underage smoking. For example, in 2008 there is a strong trend between underage smoking and youth 
                                   poverty rate while in 2000 the trend isn't as evident. Never the less, recognizing young people undergoing 
                                   the difficulties of poverty are vulnerable and begin smoking at a young age.")
-                                  
+)
                                   
