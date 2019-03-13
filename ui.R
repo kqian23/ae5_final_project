@@ -42,45 +42,45 @@ question_one_page <- tabPanel("Poverty & Gender of Smokers",
                               br(),
                               tabsetPanel(
                                 tabPanel("Explore Correlation",
-                                    sidebarLayout(position = "right",
-                                      sidebarPanel(
-                                        checkboxGroupInput("gender",
-                                          label = "Select Gender",
-                                          choices = c("Male" = "avg_male_smoking", "Female" = "avg_female_smoking"),
-                                          selected = "Male"
-                                        )
-                                      ),
-                                        mainPanel(
-                                          plotlyOutput(outputId = "one_scatter"),
-                                          br(),
-                                          p("The following scatter plot shows the correlation of averaged poverty percentage and the averaged youth smoking percentage of the selected gender from 1999 to 2017. Each colorful dot represents a state and together we could see a general relationship from the linear regression fit of the scatter points(the blue line), with the shaded area as range of standard error. The data used for presentation is filtered for only FREQUENTLY youth smokers, which is the major group of concern in the aspect of health and growth."),
-                                          p("For male youth, the slope of the regression line is approximately 0.55, which shows a moderate positive correlation. This means that the increase of poverty rate in a state has a moderate correlation with the increase of male youth smokers in that state. "),
-                                          p("On the female side, the regression line has a slope of around 0.125, which shows a very weak positive correlation between female youth smoking and poverty rate."),
-                                          p("Overall, the slope of regression line for both gender is near 0.37, which means a weak positive correlation. So from the data, it seems greater the poverty in a state, higher the chance that youth in such state will become a frequent smoker. Moreover, in the few states that have the highest overall smoking percentage (Kentucky, West Virginia, Alabama and Tennessee), we could see that they all have poverty percentage over 20%, which is more than half of the averaged poverty percentage for all states. In the aspect of gender, it seems like male youth are more likely to be affected by the increase of poverty.")
-                                        )
-                                      )
+                                         sidebarLayout(position = "right",
+                                                       sidebarPanel(
+                                                         checkboxGroupInput("gender",
+                                                                            label = "Select Gender",
+                                                                            choices = c("Male" = "avg_male_smoking", "Female" = "avg_female_smoking"),
+                                                                            selected = "Male"
+                                                         )
+                                                       ),
+                                                       mainPanel(
+                                                         plotlyOutput(outputId = "one_scatter"),
+                                                         br(),
+                                                         p("The following scatter plot shows the correlation of averaged poverty percentage and the averaged youth smoking percentage of the selected gender from 1999 to 2017. Each colorful dot represents a state and together we could see a general relationship from the linear regression fit of the scatter points(the blue line), with the shaded area as range of standard error. The data used for presentation is filtered for only FREQUENTLY youth smokers, which is the major group of concern in the aspect of health and growth."),
+                                                         p("For male youth, the slope of the regression line is approximately 0.55, which shows a moderate positive correlation. This means that the increase of poverty rate in a state has a moderate correlation with the increase of male youth smokers in that state. "),
+                                                         p("On the female side, the regression line has a slope of around 0.125, which shows a very weak positive correlation between female youth smoking and poverty rate."),
+                                                         p("Overall, the slope of regression line for both gender is near 0.37, which means a weak positive correlation. So from the data, it seems greater the poverty in a state, higher the chance that youth in such state will become a frequent smoker. Moreover, in the few states that have the highest overall smoking percentage (Kentucky, West Virginia, Alabama and Tennessee), we could see that they all have poverty percentage over 20%, which is more than half of the averaged poverty percentage for all states. In the aspect of gender, it seems like male youth are more likely to be affected by the increase of poverty.")
+                                                       )
+                                         )
                                 ),
                                 tabPanel("View Data On Map",
-                                    sidebarLayout(position = "right",
-                                        sidebarPanel(
-                                          selectInput("dropdown_gender",
-                                            label = "Select Gender",
-                                            choices = c("Male" = "avg_male_smoking", "Female" = "avg_female_smoking"))
-                                        ),
-                                        mainPanel(
-                                          p("This choropleth map shows the averaged smoking percentage of the selected race in the united states. The different color of each state indicate the level of smoking percentage, which deeper the color is, greater the smoking percentage of the selected gender in that state. You could compare the difference of smoking distribution between male youth and female youth by selecting the dropdown menu. Furthermore, the poverty information of a particular state will be shown when mouse is hovered on that area. *States where data is not available is shown white and will display a value of -1 when you hover on it. "),
-                                          br(),
-                                          plotlyOutput(outputId = "map"),
-                                          br(),
-                                          p("We can tell from the graph that, states in the mid-west area (such as Key West, Tennessee, West Virginia and Alabama) tend to have the greatest percentage of youth smoking for both genders, where the color is the deepest, and the poverty rates in this area are also relatively hight (20~30%). "),
-                                          p("Key West seems to have the highest youth smoking rate for both gender (33.9% for man and 21.2% for woman). "),
-                                          p("Overall, male youth has a much higher smoking percentage than woman based on the color."),
-                                          p("This map is useful for state government to realize and regulate the problem of youth smoking, especially for the states have high percentage of smoking rate. During the regulating, the data suggests to focus more on underage smoking by male youth, due to the severity of the problem. Middle and high schools in all states could also use this data for preventing the increase of youth smoking based on the current local poverty level.")
-                                        )
-                                    )
-                                  )
+                                         sidebarLayout(position = "right",
+                                                       sidebarPanel(
+                                                         selectInput("dropdown_gender",
+                                                                     label = "Select Gender",
+                                                                     choices = c("Male" = "avg_male_smoking", "Female" = "avg_female_smoking"))
+                                                       ),
+                                                       mainPanel(
+                                                         p("This choropleth map shows the averaged smoking percentage of the selected race in the united states. The different color of each state indicate the level of smoking percentage, which deeper the color is, greater the smoking percentage of the selected gender in that state. You could compare the difference of smoking distribution between male youth and female youth by selecting the dropdown menu. Furthermore, the poverty information of a particular state will be shown when mouse is hovered on that area. *States where data is not available is shown white and will display a value of -1 when you hover on it. "),
+                                                         br(),
+                                                         plotlyOutput(outputId = "map"),
+                                                         br(),
+                                                         p("We can tell from the graph that, states in the mid-west area (such as Key West, Tennessee, West Virginia and Alabama) tend to have the greatest percentage of youth smoking for both genders, where the color is the deepest, and the poverty rates in this area are also relatively hight (20~30%). "),
+                                                         p("Key West seems to have the highest youth smoking rate for both gender (33.9% for man and 21.2% for woman). "),
+                                                         p("Overall, male youth has a much higher smoking percentage than woman based on the color."),
+                                                         p("This map is useful for state government to realize and regulate the problem of youth smoking, especially for the states have high percentage of smoking rate. During the regulating, the data suggests to focus more on underage smoking by male youth, due to the severity of the problem. Middle and high schools in all states could also use this data for preventing the increase of youth smoking based on the current local poverty level.")
+                                                       )
+                                         )
                                 )
                               )
+                      )
 
 question_two_page <- tabPanel("Poverty & Underage Smoking",
                               sidebarLayout(
@@ -90,8 +90,13 @@ question_two_page <- tabPanel("Poverty & Underage Smoking",
                                   
                                   # A `selectInput()` labeled "Select a state". This dropdown should let
                                   # the user pick one of the states in the joined data set.
-                                  selectInput(inputId = "Year", label = "Select a Year", 
-                                              choices = select_values, selected = "2000")
+                                  selectInput(inputId = "year_two", label = "Select a Year", 
+                                              choices = list(
+                                                "1999", "2000", "2001", "2002", "2003",
+                                                "2004", "2005", "2006", "2007", "2008",
+                                                "2009", "2010", "2011", "2012", "2013",
+                                                "2014", "2015", "2016", "2017"
+                                              ), selected = "2000")
                                   
                                 ),
                                 mainPanel(
@@ -174,9 +179,6 @@ ui <- fluidPage(
     home_page,
     question_one_page,
     question_two_page,
-    tabPanel(
-      
-    ),
     question_three_page,
     question_four_page,
     team_page,

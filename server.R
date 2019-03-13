@@ -45,10 +45,10 @@ server <- function(input, output) {
           geom_point(aes(x = poverty_rate, y = smoking_percentage, color = state)) +
           geom_smooth(aes(x = poverty_rate, y = smoking_percentage), method = "lm", size = 0.5) +
           ylim(0, 40) + xlim(5, 31) +
-          theme(legend.position="none")+
+          theme(legend.position="none") +
           xlab("Poverty Percentage") +
           ylab("Smoking Percentage of Selected Gender")
-      ggplotly(scatter_plot, tooltip="state")
+      ggplotly(scatter_plot, tooltip = "state")
     }
   })
   
@@ -122,7 +122,7 @@ server <- function(input, output) {
 
     # Assign a reactive `renderPlot()` function to the outputted 'plot' value
     output$my_plot <- renderPlot({
-      selected_values <- input$Year
+      selected_values <- input$year_two
       #source in youth tobacco data
       youth_smoking <- get_youth_tobacco_data()
       
@@ -150,18 +150,14 @@ server <- function(input, output) {
                     mean(as.numeric(ages_0_to_17_in_poverty_rate), na.rm = TRUE)) %>% 
         filter(!is.na(state))
       
-      plot_data <- joined %>% filter(Year == input$Year)
-      
+      plot_data <- joined %>% filter(Year == selected_values)
       
       #use the joined data set to make a scattered plot of poverty with under age
       # smoking as smooth to show causation 
       p <- ggplot(data = plot_data)+
         geom_point(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking))+
         geom_smooth(mapping = aes(x = ages_0_to_17_in_poverty_rate, y = avg_rate_smoking))
-      
-      
-      
-      
+
       p #return the plot
     })#end of render plot    
   
