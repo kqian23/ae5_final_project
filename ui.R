@@ -187,9 +187,6 @@ ui <- fluidPage(
     home_page,
     question_one_page,
     question_two_page,
-    tabPanel(
-      
-    ),
     question_three_page,
     question_four_page,
     team_page,
