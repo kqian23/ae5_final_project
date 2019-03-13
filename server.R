@@ -2,6 +2,7 @@ library("shiny")
 library("dplyr")
 library("tidyr")
 library("ggplot2")
+library("jsonlite")
 source("analysis.R")
 
 
@@ -15,12 +16,21 @@ server <- function(input, output) {
 
 
   # Q3 starts here
+  
+  # rename poverty column
+
+  
+ 
+  
   output$cessation <- renderPlot({
-    # rename poverty column
     poverty <- get_youth_poverty_data()
     colnames(poverty)[colnames(poverty) == "state"] <- "states"
     colnames(poverty)[colnames(poverty) == "state_abbreviation"] <- "State"
-
+   
+     # filter out poverty data set
+    poverty_data_plot <- poverty %>%
+      filter(year == input$years)
+   
     # filter out tobaco data set
     cessation <- get_youth_tobacco_data() %>%
       select(-Geo_Location, -Response) %>%
@@ -28,12 +38,6 @@ server <- function(input, output) {
         Topic_Description == "Cessation (Youth)", Year == input$years,
         Gender == input$gender
       )
-
-    # filter out poverty data set
-    poverty_data <- poverty %>%
-      filter(year == input$years)
-    # input$years)
-
 
     joined_cessation_poverty_data <- left_join(cessation, poverty,
       by = c("State")
@@ -43,11 +47,9 @@ server <- function(input, output) {
         ages_0_to_17_in_poverty_rate
       )
 
-
     joined_cessation_poverty_data <- mutate(joined_cessation_poverty_data,
       poverty_rate = as.numeric(ages_0_to_17_in_poverty_rate)
     ) 
-
 
     poverty_perc_bin_labels <-
       c(
@@ -73,6 +75,59 @@ server <- function(input, output) {
         x = "Poverty Rate", y = "Cessation"
       ) +
       scale_fill_brewer(palette = "Accent")
+  }) 
+  
+  # output a data table
+  output$table <- renderTable({
+    
+    # poverty_data_table <- poverty %>%
+    #   filter(year == input$years)
+    # 
+    # # filter out tobaco data set
+    # cessation_table <- get_youth_tobacco_data() %>%
+    #   select(-Geo_Location, -Response) %>%
+    #   filter(
+    #     Topic_Description == "Cessation (Youth)", Year == input$years,
+    #     Gender == input$gender
+    #   )
+    # 
+    # joined_cessation_poverty_data_table <- left_join(cessation, poverty, 
+    #                                            by = c("State")) %>%
+    #   select(
+    #     Year, State, Gender, Education, Data_Value,
+    #     ages_0_to_17_in_poverty_rate
+    #   )
+    # # %>% 
+    # #   arrange(-ages_0_to_17_in_poverty_rate) %>% 
+    # #   head(n = 10)
+    
+    poverty <- get_youth_poverty_data()
+    colnames(poverty)[colnames(poverty) == "state"] <- "states"
+    colnames(poverty)[colnames(poverty) == "state_abbreviation"] <- "State"
+    
+    poverty_data_table <- poverty %>%
+      filter(year == input$years) 
+    
+    # filter out tobaco data set
+    cessation_table <- get_youth_tobacco_data() %>%
+      select(-Geo_Location, -Response) %>%
+      filter(
+        Topic_Description == "Cessation (Youth)", Year == input$years,
+        Gender == input$gender
+      ) 
+
+    
+    joined_cessation_poverty_data_table <- left_join(cessation_table, poverty_data_table, 
+                                                     by = c("State")) %>% 
+      select(
+        Year, State, Gender, Education, Data_Value,
+        ages_0_to_17_in_poverty_rate
+      ) %>% 
+      na.omit() %>%  
+      head(n = 10)
+    
+
+      
   })
 
 
@@ -125,3 +180,4 @@ server <- function(input, output) {
       geom_col(mapping = aes(x = percentage_bins, y = percentage, fill = education), position = "dodge")
   })
 }
+

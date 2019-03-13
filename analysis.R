@@ -146,5 +146,5 @@ get_tobacco_by_topic <- function() {
   tobacco_topic_ranked
 }
 
-test <- mutate(get_youth_poverty_data(), 
-                                        max_test = as.numeric(ages_0_to_17_in_poverty_rate))
+
+
